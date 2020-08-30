@@ -5,7 +5,7 @@
 #
 
 ARG ARCH=
-FROM ${ARCH}python:3-buster
+FROM ${ARCH}python:3-slim-buster
 
 # Install package
 # Must used calibre package to be able to run external module
