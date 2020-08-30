@@ -21,4 +21,4 @@ jobs:
         run: |
           docker buildx build \
             --tag BlackDark/multiarch-example:latest \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 docker-files/develop/.
+            --platform linux/amd64,linux/arm/v7,linux/arm64 docker-files/devel/.
