@@ -5,7 +5,7 @@
 #
 
 ARG ARCH=
-FROM ${ARCH}ubuntu:20.04
+FROM ${ARCH}python/3-buster
 
 # Install package
 # Must used calibre package to be able to run external module
@@ -17,26 +17,17 @@ RUN \
             gcc               \
             lm-sensors        \
             wireless-tools    \
-            iputils-ping      \
-            python3-pip       \
-            python3-dev    && \
+            iputils-ping && \
   rm -rf /var/lib/apt/lists/*
 
 ## Instal glances
-RUN \
-  pip3 install --upgrade pip                                                                                 && \
-  pip3 install setuptools                                                                                    && \
-  pip3 install glances[action,batinfo,browser,cpuinfo,docker,export,folders,gpu,graph,ip,raid,snmp,web,wifi] && \
-  pip3 install --upgrade -i https://test.pypi.org/simple/ Glances
+RUN pip3 install glances[all]
 
 # Define working directory.
 WORKDIR /glances
 
-# EXPOSE PORT (For XMLRPC)
-EXPOSE 61209
-
-# EXPOSE PORT (For Web UI)
-EXPOSE 61208
+# EXPOSE PORT (XMLRPC / WebUI)
+EXPOSE 61209 61208
 
 # Define default command.
 CMD python3 -m glances -C /glances/conf/glances.conf $GLANCES_OPT
