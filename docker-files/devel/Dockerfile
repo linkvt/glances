@@ -4,9 +4,8 @@
 # https://github.com/nicolargo/glances
 #
 
-# Pull base image.
-FROM ubuntu:20.04
-
+ARG ARCH=
+FROM ${ARCH}ubuntu:20.04
 
 # Install package
 # Must used calibre package to be able to run external module
