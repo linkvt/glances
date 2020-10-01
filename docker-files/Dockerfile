@@ -20,6 +20,7 @@ RUN \
             iputils-ping && \
   rm -rf /var/lib/apt/lists/*
 
+ARG VERSION
 ## Install glances
 ## If version is dev will use git checkout
 RUN if [  "$VERSION" = "dev" ] ; then \
