@@ -19,9 +19,10 @@ jobs:
         id: prepare
         env:
           DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE }}
+          DOCKER_PLATFORMS: linux/amd64,linux/arm/v7,linux/arm64,linux/386
         run: |
           VERSION=latest
-          DOCKER_PLATFORMS=linux/amd64,linux/arm/v7,linux/arm64,linux/386
+          
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/v}
           fi
@@ -41,6 +42,11 @@ jobs:
             --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
             --build-arg VCS_REF=${GITHUB_SHA::8} \
             ${TAGS} --file ./docker-files/Dockerfile ./docker-files/
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
 
       - name: Set up Docker Buildx
         id: buildx
