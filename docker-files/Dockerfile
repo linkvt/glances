@@ -25,7 +25,8 @@ ARG VERSION
 ## If version is dev will use git checkout
 RUN if [  "$VERSION" = "dev" ] ; then \
     echo Installing dev branch of glances from git; \
-    git clone -b develop https://github.com/nicolargo/glances.git; \
+    apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/* ; \
+    git clone -b develop https://github.com/nicolargo/glances.git ; \
   else \
     echo Installing glances from pip; \
     pip3 install glances[all]; \
